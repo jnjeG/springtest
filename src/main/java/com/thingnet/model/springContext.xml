@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"   
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:p="http://www.springframework.org/schema/p"  
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:mvc="http://www.springframework.org/schema/mvc"   
+       xmlns:tx="http://www.springframework.org/schema/tx"   
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+        default-init-method="init"
+        default-destroy-method="destroy">
+        
+        <bean id="propertyjuggler" class="com.thingnet.model.Juggler" p:beanBags="18" >
+<!--         	<property name="beanBags" value="13" /> -->
+				<property name="wifesname">
+					<list>
+						<value>marry</value>
+						<value>tom</value>
+						<value>jerry</value>
+					</list>
+				</property>
+				<property name="jugglemap">
+					<map>
+						<entry key="me" value-ref="propertyjuggler"></entry>
+					</map>
+				</property>
+				<property name="pros">
+					<props>
+						<prop key="p1">v1</prop>
+						<prop key="p2">v2</prop>
+					</props>
+				</property>
+				<property name="nullVal">
+					<null/>
+				</property>
+        </bean>
+        
+        <bean id="juggler" class="com.thingnet.model.Juggler" init-method="init2" destroy-method="destroy">
+        	<constructor-arg value="15" />
+        </bean>
+        
+        <bean id="staticJuggle" class="com.thingnet.model.Juggler" factory-method="instance"></bean>
+        
+        
+		<bean id="knight" class="com.thingnet.model.MyConstructor">
+			<constructor-arg ref="myconstruct"></constructor-arg>
+		</bean>
+		
+		<bean id="myconstruct" class="com.thingnet.model.ConstructorArg"></bean>
+		
+		<bean id="printservice" class="com.thingnet.service.PrintService"></bean>
+		
+		<aop:config>
+			<aop:aspect ref="printservice">
+				<aop:pointcut id="say" 
+					expression="execution(* *.say(..))" />
+				<aop:before pointcut-ref="say" method="printBefore" />
+				<aop:after pointcut-ref="say" method="printAfter" />					
+			</aop:aspect>
+		</aop:config>
+</beans>

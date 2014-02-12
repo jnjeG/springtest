@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"   
+       xmlns:aop="http://www.springframework.org/schema/aop" 
+       xmlns:p="http://www.springframework.org/schema/p"  
+       xmlns:context="http://www.springframework.org/schema/context"  
+       xmlns:mvc="http://www.springframework.org/schema/mvc"   
+       xmlns:tx="http://www.springframework.org/schema/tx"   
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+       xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+        default-init-method="init"
+        default-destroy-method="destroy">
+        
+        
+        <bean id="audience" class="com.thingnet.model.aspect.Audience"></bean>
+        <bean id="performer2" class="com.thingnet.model.aspect.Performer"></bean>
+        
+<!--         拦截参数 -->
+        <bean id="magician" class="com.thingnet.model.aspect.Magician"></bean>
+        <bean id="volunteer" class="com.thingnet.model.aspect.Volunteer"></bean>
+        
+        <aop:config>
+        	<aop:aspect ref="audience">
+        		<aop:pointcut id="performpointcut" expression="execution(* com.thingnet.model.aspect.Performer.perform(..))" />
+        		
+        		<aop:before pointcut-ref="performpointcut" method="takeSeat"></aop:before>
+        		<aop:before pointcut-ref="performpointcut" method="turnOffCellphone"></aop:before>
+        		<aop:after-returning pointcut-ref="performpointcut" method="applaud"></aop:after-returning>
+        		<aop:after-throwing pointcut-ref="performpointcut" method="takeBackMoney"></aop:after-throwing>
+        		
+        		<aop:around pointcut-ref="performpointcut" method="kanXingNeng"></aop:around>
+        	</aop:aspect>
+        	
+        	
+        	<aop:aspect ref="magician">
+        		<aop:pointcut id="thinkpointcut" expression="execution(* com.thingnet.model.aspect.Volunteer.thinkOfSomething(String)) and args(thought)" />
+        		<aop:before pointcut-ref="thinkpointcut" method="interceptThougths" arg-names="thought"></aop:before>
+        	</aop:aspect>
+        	
+<!--         	使用xml配置文件方式使用引入 -->
+        	<aop:aspect>
+        		<aop:declare-parents
+        			types-matching="com.thingnet.model.aspect.introduce.OriginInterface+"
+        			implement-interface="com.thingnet.model.aspect.introduce.ExtendInterface"
+        			default-impl="com.thingnet.model.aspect.introduce.ExtendInterfaceImpl"
+        		/>
+        	</aop:aspect>
+        </aop:config>
+        
+<!--         	使用xml配置文件方式使用引入 -->
+		<bean id="origin" class="com.thingnet.model.aspect.introduce.Origin"></bean>        
+
+
+<!-- 使用注解的方式使用introduce技术 -->
+        <aop:aspectj-autoproxy/>  
+        <bean class="com.thingnet.model.aspect.introduce.annotation.ExtendIntroducer"></bean>
+        <bean id="origin2" class="com.thingnet.model.aspect.introduce.Origin"></bean>
+        
+</beans>

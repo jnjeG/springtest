@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/thingnet" docBase="thingnet" reloadable="false"
+	crossContext="true" debug="0">
+
+	<Valve className="org.apache.catalina.valves.AccessLogValve"
+		directory="/data/project/log/thingnet/accesslog" prefix="access."
+		pattern="%h %l %u %t %r %s %b %D" resolveHosts="false" fileDateFormat="yyyy-MM-dd" />
+
+</Context>
