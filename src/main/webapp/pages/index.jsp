@@ -8,36 +8,49 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="<%=context %>/pages/ui/flatui2-1-3/bootstrap/css/bootstrap.css" rel="stylesheet"/>
+  <!-- Loading Flat UI -->
+<link href="<%=context %>/pages/ui/flatui2-1-3/css/flat-ui.css" rel="stylesheet">
+<link href="<%=context %>/pages/ui/flatui2-1-3/css/demo.css" rel="stylesheet">
+
 <script type="text/javascript" src="<%=context%>/pages/js/jquery/jquery-1.8.2.min.js"></script>
+
+<style> 
+ body{ text-align:center} 
+ .div{ margin:0 auto; width:400px; height:100px; border:1px solid #F00} 
+</style> 
+
 <title>首页</title>
 </head>
-<body>
+
+<body bgcolor="#bac1c8">
+<div class="container">
 <c:out value="${liming}"></c:out>
 <h2>不知道去哪吃饭好？没关系,天帮你!</h2>
 <%-- <form action="<%=context%>/randomRes.do" method="post"> --%>
 <form id="nameform">
-	<ul>
-		<li><input name="name" type="text" value="华辉" /></li>
-		<li><input name="name" type="text" value="麦当劳" /></li>
-		<li><input name="name" type="text" value="真功夫" /></li>
-		<li><input name="name" type="text" value="多营" /></li>
-		<li><input name="name" type="text" value="麦田鸡" /></li>
-		<li><input name="name" type="text" value="789" /></li>
-		<li><input name="name" type="text" value="烧鹅仔" /></li>
-		<li><input name="name" type="text" value="老刘家" /></li>
-		<li><input name="name" id="addButt" type="button" value="+" onclick="addRes()"/></li>
-	</ul>
-	<input type="button" value="让天决定" onclick="postReq()">
+	<div><input name="name" type="text" value="华辉"/></div>
+	<div><input name="name" type="text" value="麦当劳" /></div>
+	<div><input name="name" type="text" value="真功夫" /></div>
+	<div><input name="name" type="text" value="多营" /></div>
+	<div><input name="name" type="text" value="麦田鸡" /></div>
+	<div><input name="name" type="text" value="789" /></div>
+	<div><input name="name" type="text" value="烧鹅仔" /></div>
+	<div><input name="name" type="text" value="老刘家" /></div>
+	<div><input name="name" type="text" value="麦当劳" /></div>
+	<div id="addButt"><input name="name" type="button" value="+" onclick="addRes()"/></div>
+	<br/>
 </form>
+<input type="button" value="让天决定" onclick="postReq()">
 <h1>
-<%-- 去...<c:out value="${result}"/> --%>
 去...<label id="result"></label>
 </h1>
+</div>
 </body>
 </html>
 <script type="text/javascript">
 function addRes(){
-	$("#addButt").before("<li><input name='name' type='text'/></li>");
+	$("#addButt").before("<div><input name='name' type='text'/></div>");
 }
 
 
