@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,9 @@ public class HomeController {
 		Random random = new Random();
 		int index = random.nextInt(size);
 		String result  = names[index];
+		while(!StringUtils.hasText(result)){
+			result = names[random.nextInt(size)];
+		}
 		request.setAttribute("result", result);
 		ModelAndView model = new ModelAndView("result");
         return model;
