@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +27,7 @@ public class HomeController {
 	
 	
 	@RequestMapping(value="/randomRes.do",method=RequestMethod.POST)
+	@ResponseBody
 	public ModelAndView randomRes(HttpServletRequest request, HttpServletResponse response){
 		String names[] = request.getParameterValues("name");
 		int size  =names.length;
@@ -33,7 +35,7 @@ public class HomeController {
 		int index = random.nextInt(size);
 		String result  = names[index];
 		request.setAttribute("result", result);
-		ModelAndView model = new ModelAndView("index");
+		ModelAndView model = new ModelAndView("result");
         return model;
 	}
 }
