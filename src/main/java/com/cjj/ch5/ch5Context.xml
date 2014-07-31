@@ -21,6 +21,13 @@
         
         
         
+        <bean id="userDao" class="com.cjj.ch5.UserDao">
+        	<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+        </bean>
+        
+        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
+        	<constructor-arg ref="dataSource" />
+        </bean>
         
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"       
         destroy-method="close">       
@@ -29,9 +36,4 @@
 		    <property name="username" value="jbjava" />      
 		    <property name="password" value="jb98" />      
 		</bean>  
-        
-        
-        <bean id="jdbcTemplate" class="org.springframework.jdbc.core.simple.SimpleJdbcTemplate">
-        	<constructor-arg ref="dataSource" />
-        </bean>
 </beans>
